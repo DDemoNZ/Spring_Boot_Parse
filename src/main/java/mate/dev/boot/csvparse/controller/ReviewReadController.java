@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import mate.dev.boot.csvparse.dto.MostActiveUser;
+import mate.dev.boot.csvparse.dto.MostActiveUserResponseDto;
+import mate.dev.boot.csvparse.dto.MostPopularWordResponseDto;
+import mate.dev.boot.csvparse.dto.ProductResponseDto;
 import mate.dev.boot.csvparse.entity.Review;
 import mate.dev.boot.csvparse.service.ReviewService;
 import org.apache.logging.log4j.LogManager;
@@ -46,13 +48,29 @@ public class ReviewReadController {
     }
 
     @GetMapping("/most-active")
-    public List<MostActiveUser> getMostActiveUsers(
+    public List<MostActiveUserResponseDto> getMostActiveUsers(
             @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
             @RequestParam(value = "count", required = false, defaultValue = "100") Integer count) {
         logger.info("\"Get most active users\" started " + LocalDateTime.now());
         Pageable pageable = PageRequest.of(page, count);
-        logger.info("Getting most active users finished " + LocalDateTime.now());
         return reviewService.getMostActiveUsers(pageable);
     }
 
+    @GetMapping("/popular-words")
+    public List<MostPopularWordResponseDto> getMostPopularWords(
+            @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limit) {
+        logger.info("\"Get most popular words\" started" + LocalDateTime.now());
+        Pageable pageable = PageRequest.of(page, limit);
+        return reviewService.getMostPopularWord(pageable);
+    }
+
+    @GetMapping
+    public List<ProductResponseDto> getMostCommentedProduct(
+            @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(value = "limit", required = false, defaultValue = "100") Integer limit) {
+        logger.info("\"Get most commented products\" started " + LocalDateTime.now());
+        Pageable pageable = PageRequest.of(page, limit);
+        return reviewService.getMostCommentedProducts(pageable);
+    }
 }

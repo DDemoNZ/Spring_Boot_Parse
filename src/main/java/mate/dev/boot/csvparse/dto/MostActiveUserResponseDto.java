@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MostActiveUser {
+public class MostActiveUserResponseDto {
 
     private String profileName;
     private Long reviews;
