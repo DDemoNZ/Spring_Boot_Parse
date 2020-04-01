@@ -2,10 +2,12 @@ package mate.dev.boot.csvparse.util;
 
 import mate.dev.boot.csvparse.dto.ReviewResponseDto;
 import mate.dev.boot.csvparse.entity.Review;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ReviewMapper {
 
-    public static ReviewResponseDto getResponseDto(Review review) {
+    public ReviewResponseDto getResponseDto(Review review) {
         ReviewResponseDto reviewResponseDto = new ReviewResponseDto();
         reviewResponseDto.setId(review.getId());
         reviewResponseDto.setProductId(review.getProductId());

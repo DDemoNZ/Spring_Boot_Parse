@@ -1,19 +1,17 @@
 package mate.dev.boot.csvparse.entity;
 
 import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "review")
+@Table(name = "reviews")
 public class Review {
 
     @Id
@@ -37,4 +35,5 @@ public class Review {
     private String summary;
     @Column(name = "text", columnDefinition = "TEXT")
     private String text;
+
 }

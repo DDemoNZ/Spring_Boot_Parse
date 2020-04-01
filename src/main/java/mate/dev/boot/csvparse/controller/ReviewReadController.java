@@ -4,17 +4,16 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
-import mate.dev.boot.csvparse.dto.ReviewResponseDto;
+import mate.dev.boot.csvparse.dto.MostActiveUser;
 import mate.dev.boot.csvparse.entity.Review;
 import mate.dev.boot.csvparse.service.ReviewService;
-import mate.dev.boot.csvparse.util.ReviewMapper;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -47,12 +46,13 @@ public class ReviewReadController {
     }
 
     @GetMapping("/most-active")
-    public List<ReviewResponseDto> getMostActiveUsers() {
-        logger.info("Getting most active users " + LocalDateTime.now());
-        return reviewService.getMostActiveUsers()
-                .stream()
-                .map(ReviewMapper::getResponseDto)
-                .collect(Collectors.toList());
+    public List<MostActiveUser> getMostActiveUsers(
+            @RequestParam(value = "page", required = false, defaultValue = "0") Integer page,
+            @RequestParam(value = "count", required = false, defaultValue = "100") Integer count) {
+        logger.info("\"Get most active users\" started " + LocalDateTime.now());
+        Pageable pageable = PageRequest.of(page, count);
+        logger.info("Getting most active users finished " + LocalDateTime.now());
+        return reviewService.getMostActiveUsers(pageable);
     }
 
 }

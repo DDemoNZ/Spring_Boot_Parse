@@ -1,10 +1,15 @@
 package mate.dev.boot.csvparse.dto;
 
 import java.time.LocalDateTime;
-
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReviewResponseDto {
 
     private Long id;
@@ -17,4 +22,6 @@ public class ReviewResponseDto {
     private LocalDateTime time;
     private String summary;
     private String text;
+    private Long reviews;
+
 }
