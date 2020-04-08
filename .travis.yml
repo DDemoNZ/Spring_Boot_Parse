@@ -1,0 +1,10 @@
+language: java
+jdk:
+  - openjdk11
+script:
+  - mvn clean install
+cache:
+  directories:
+    - $HOME/.m2
+before_install:
+  - chmod +x mvnw
